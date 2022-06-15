@@ -1,14 +1,21 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { createTask } from '../tasksSlice'
 import './TaskCreator.css'
 
 export function TaskCreator() {
     const [text, setText] = useState("")
+    const dispatch = useDispatch()
     const handleTextChange = ({target}) => {
         setText(target.value)
     }
     const handleSubmit = (e) => {
         e.preventDefault()
-        setText('')
+        if(text) {
+            const id = new Date().getTime()
+            dispatch(createTask({ id, text, complete: false }))
+            setText('')
+        }
     }
 
     return (

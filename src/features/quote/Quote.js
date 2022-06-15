@@ -1,11 +1,12 @@
-
-
+import { useSelector } from "react-redux/es/exports"
+import { selectQuote } from "./quoteSlice"
 export function Quote() {
+    const quote = useSelector(selectQuote)
     return (
         <div style={{
             position: 'absolute',
             bottom: 20,
-            width: '100%'
+            width: '99%',
         }}>
             <h5 
                 style={{  
@@ -13,8 +14,16 @@ export function Quote() {
                     color: 'white',
                 }}
                 >
-                    "The grass is greener when you have a better mood." - Yoda
+                    "{quote.text}"
             </h5>
+            <h6
+                style={{  
+                    textAlign: 'center', 
+                    color: 'white',
+                }}
+            >
+                {quote.author}
+            </h6>
         </div>
     )
 }

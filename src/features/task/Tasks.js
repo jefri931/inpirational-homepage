@@ -1,18 +1,20 @@
-import { Task } from "../../components/Task/Task"
-
-const tasks = [
-    { id: 1, name: 'Test test', completed: false }, 
-    { id: 2, name: 'Test test 22', completed: false },
-    { id: 3, name: 'Test test 33', completed: false },
-    { id: 4, name: 'Test test 444444444444444', completed: false },
-    { id: 5, name: 'Test 5', completed: false },
-]
+import { Task } from "./Task/Task"
+import { useSelector } from "react-redux/es/exports"
+import { selectTasks } from "./tasksSlice"
 
 export function Tasks() {
+    const tasks = useSelector(selectTasks)
 
     return (
         <div className='center-container light-transparent-bg' style={{ marginTop: 20 }}>
-            {tasks.map(t => <Task key={t.id} name={t.name} />)}
+            {tasks.map(t => 
+            <Task 
+                key={t.id} 
+                id={t.id}
+                text={t.text}
+                complete={t.complete}
+            />
+                )}
         </div>
     )
 }

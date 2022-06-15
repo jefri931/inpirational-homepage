@@ -2,17 +2,18 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getImages } from "./backgroundAPI";
 
 const initialState = {
-    currentImageIndex: 0,
-    images: [],
-    loading: false,
-    failed: false
+    background: {
+        currentImageIndex: 0,
+        images: [],
+        status: 'pending'
+    }
 }
 
 export const loadImagesAsync = createAsyncThunk(
     'background/loadImages',
     async () => {
       const response = await getImages();
-      return response;
+      return response.results.map(i => i.urls.regular);
     }
 );
 
@@ -21,40 +22,37 @@ export const backgroundSlice = createSlice({
     initialState,
     reducers: {
         nextImage: (state) => {
-            if(state.images.length - 1 === state.currentImageIndex){
-                state.currentImageIndex = 0
+            if(state.background.images.length - 1 === state.background.currentImageIndex){
+                state.background.currentImageIndex = 0
             }
             else {
-                state.currentImageIndex++
+                state.background.currentImageIndex++
             }
         },
         previousImage: (state) => {
-            if(state.currentImageIndex === 0){
-                state.currentImageIndex = state.images.length - 1
+            if(state.background.currentImageIndex === 0){
+                state.background.currentImageIndex = state.background.images.length - 1
             }
             else {
-                state.currentImageIndex--
+                state.background.currentImageIndex--
             }
         }
     },
     extraReducers: {
         [loadImagesAsync.pending]: (state) => {
-            state.loading = true
-            state.failed = false
+            state.background.status = 'pending'
         },
         [loadImagesAsync.fulfilled]: (state, action) => {
-            state.loading = false
-            state.failed = false
-            state.images = action.payload
+            state.background.status = 'fulfilled'
+            state.background.images = action.payload
         },
         [loadImagesAsync.rejected]: (state) => {
-            state.loading = false
-            state.failed = true
+            state.background.status = 'rejected'
         }
       },
 })
 
-export const selectBackground = (state) => state.background
+export const selectBackground = (state) => state.background.background
 
 export const { nextImage, previousImage } = backgroundSlice.actions
 

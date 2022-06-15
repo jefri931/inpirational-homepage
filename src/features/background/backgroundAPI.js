@@ -14,8 +14,8 @@ export async function getImages() {
         },
     );
     if(result.type === 'success') {
-        const images = result.response.results.map(i => i.urls.regular)
-        return images
+        const response = result.response
+        return response
     }
 
     return []
