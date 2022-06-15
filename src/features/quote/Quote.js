@@ -4,8 +4,10 @@ export function Quote() {
     const quote = useSelector(selectQuote)
     return (
         <div style={{
-            position: 'absolute',
-            bottom: 20,
+            //position: 'fixed',
+            //bottom: 0,
+            //padding: 10,
+            marginTop: 50,
             width: '99%',
         }}>
             <h5 

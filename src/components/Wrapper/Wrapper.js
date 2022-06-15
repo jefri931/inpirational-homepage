@@ -51,10 +51,10 @@ export function Wrapper() {
                 <Weather />
                 <TaskCreator />
                 <div className="row" style={{ marginTop: 10 }}>
-                    <div className="col-sm-6 transparent-button">
+                    <div className="col transparent-button">
                         <TransparentButton text="<" onClick={handlePreviousImageClick} ></TransparentButton>
                     </div>
-                    <div className="col-sm-6 transparent-button">
+                    <div className="col transparent-button">
                         <TransparentButton text=">" onClick={handleNextImageClick} ></TransparentButton>
                     </div>
                 </div>
